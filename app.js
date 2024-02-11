@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.get('/player/:steamid', async (req, res) => {
     try {
         const steamId = req.params.steamid;
-        const apiKey = 'YOUR_API_KEY'; // Replace with your actual API key
+        const apiKey = 'YOUR_API_KEY'; // Replace with your actual API key | To be removed
         const response = await axios.get(`http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${apiKey}&steamids=${steamId}`);
         res.json(response.data);
     } catch (error) {
