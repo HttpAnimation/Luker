@@ -9,6 +9,12 @@ const PORT = process.env.PORT || 3000;
 const apiKeyData = JSON.parse(fs.readFileSync('ApiKey.json'));
 const apiKey = apiKeyData.apiKey;
 
+// Route handler for root URL
+app.get('/', (req, res) => {
+    res.send('Server is running.');
+});
+
+// Route handler to fetch player summaries from Steam API
 app.get('/player/:steamid', async (req, res) => {
     try {
         const steamId = req.params.steamid;
@@ -20,7 +26,7 @@ app.get('/player/:steamid', async (req, res) => {
     }
 });
 
+// Start server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    console.log(`App can be found at localhost:3000`)
 });
