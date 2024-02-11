@@ -3,7 +3,13 @@ const axios = require('axios');
 const fs = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+let PORT = process.env.PORT || 3000; // Default port
+
+// Check if the '-p' flag is provided in the command line arguments
+const portIndex = process.argv.indexOf('-p');
+if (portIndex !== -1 && process.argv[portIndex + 1]) {
+    PORT = parseInt(process.argv[portIndex + 1]);
+}
 
 // Read API key from ApiKey.json
 const apiKeyData = JSON.parse(fs.readFileSync('ApiKey.json'));
