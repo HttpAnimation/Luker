@@ -22,4 +22,5 @@ app.get('/player/:steamid', async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log(`App can be found at localhost:3000`)
 });
