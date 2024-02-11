@@ -1,16 +1,17 @@
-// Import necessary modules
 const express = require('express');
 const axios = require('axios');
+const fs = require('fs');
 
-// Create Express app
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Define routes
+// Read API key from ApiKey.json
+const apiKeyData = JSON.parse(fs.readFileSync('ApiKey.json'));
+const apiKey = apiKeyData.apiKey;
+
 app.get('/player/:steamid', async (req, res) => {
     try {
         const steamId = req.params.steamid;
-        const apiKey = 'YOUR_API_KEY'; // Replace with your actual API key | To be removed
         const response = await axios.get(`http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${apiKey}&steamids=${steamId}`);
         res.json(response.data);
     } catch (error) {
@@ -19,7 +20,6 @@ app.get('/player/:steamid', async (req, res) => {
     }
 });
 
-// Start server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
