@@ -19,7 +19,14 @@ app.get('/player/:steamid', async (req, res) => {
     try {
         const steamId = req.params.steamid;
         const response = await axios.get(`http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${apiKey}&steamids=${steamId}`);
-        res.json(response.data);
+        
+        // Extract name and number of games from the response
+        const playerData = response.data.response.players[0];
+        const playerName = playerData.personaname;
+        const gameCount = playerData.game_count;
+
+        // Send the name and game count as a response
+        res.send(`Player Name: ${playerName}\nNumber of Games Owned: ${gameCount}`);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
